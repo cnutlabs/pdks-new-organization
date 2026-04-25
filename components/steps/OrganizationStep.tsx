@@ -109,10 +109,11 @@ export function OrganizationStep({ value, errors, onChange }: Props) {
           <select
             className="input"
             value={value.planCode}
-            onChange={(e) => set('planCode', e.target.value as 'BASIC' | 'PRO')}
+            onChange={(e) => set('planCode', e.target.value as 'BASIC' | 'PRO' | 'UNLIMITED')}
           >
             <option value="BASIC">Basic (25 kullanıcı, 3 departman)</option>
             <option value="PRO">Pro (100 kullanıcı, 15 departman)</option>
+            <option value="UNLIMITED">Sınırsız (sınırsız kullanıcı, sınırsız departman)</option>
           </select>
         </Field>
 

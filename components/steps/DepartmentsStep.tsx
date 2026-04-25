@@ -8,7 +8,7 @@ interface Props {
   value: BootstrapInput['departments'];
   errors: Record<string, string>;
   onChange: (next: BootstrapInput['departments']) => void;
-  planCode: 'BASIC' | 'PRO';
+  planCode: 'BASIC' | 'PRO' | 'UNLIMITED';
 }
 
 const DAY_NAMES = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
@@ -87,15 +87,15 @@ export function DepartmentsStep({ value, errors, onChange, planCode }: Props) {
     });
   };
 
-  const planLimit = planCode === 'PRO' ? 15 : 3;
+  const planLimit = planCode === 'UNLIMITED' ? null : planCode === 'PRO' ? 15 : 3;
 
   return (
     <div className="space-y-5">
       <div>
         <h2 className="text-lg font-semibold">Departmanlar</h2>
         <p className="text-sm text-slate-500">
-          Plan limiti: {planLimit} departman ({planCode}). En az 1 departman önerilir; boş
-          bıraksanız da sonra ekleyebilirsiniz.
+          Plan limiti: {planLimit ?? 'sınırsız'} departman ({planCode}). En az 1 departman
+          önerilir; boş bıraksanız da sonra ekleyebilirsiniz.
         </p>
       </div>
 
@@ -277,12 +277,12 @@ export function DepartmentsStep({ value, errors, onChange, planCode }: Props) {
         <button
           type="button"
           onClick={add}
-          disabled={value.length >= planLimit}
+          disabled={planLimit !== null && value.length >= planLimit}
           className="btn-primary"
         >
           + Departman Ekle
         </button>
-        {value.length >= planLimit && (
+        {planLimit !== null && value.length >= planLimit && (
           <span className="text-xs text-slate-500">Plan limiti dolu</span>
         )}
       </div>

@@ -129,7 +129,7 @@ export const bootstrapOrganizationSchema = z.object({
     addressStreet: z.string().max(255).optional().or(z.literal('')),
     addressCity: z.string().max(100).optional().or(z.literal('')),
     addressCountry: z.string().max(100).default('Turkiye'),
-    planCode: z.enum(['BASIC', 'PRO']),
+    planCode: z.enum(['BASIC', 'PRO', 'UNLIMITED']),
     planDurationDays: z.number().int().min(1).max(3650).default(365),
     settings: z
       .object({
